@@ -313,13 +313,13 @@ int main(int argc, char* argv[]) {
     help << "(" << filterCriteria.minAccuracy 
          << ") Minimum percentage accuracy to reference.";
     clp.RegisterIntOption("minAccuracy", &filterCriteria.minAccuracy,
-            help.str(), CommandLineParser::PositiveFloat);
+            help.str(), CommandLineParser::PositiveInteger);
 
     help.str(string());
     help << "(" << filterCriteria.minPctSimilarity
          << ") Minimum percentage similarity to reference.";
     clp.RegisterIntOption("minPctSimilarity", &filterCriteria.minPctSimilarity,
-            help.str(), CommandLineParser::PositiveFloat);
+            help.str(), CommandLineParser::PositiveInteger);
 
     help.str(string());
     help << "(" << filterCriteria.minLength
