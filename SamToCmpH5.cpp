@@ -22,6 +22,7 @@ int main(int argc, char* argv[]) {
   string samFileName, cmpFileName, refFileName;
   bool parseSmrtTitle = false;
   bool useShortRefName = false;
+  bool copyQVs = false;
   CommandLineParser clp;
   string readType = "standard";
   int verbosity = 0;
@@ -56,6 +57,10 @@ int main(int argc, char* argv[]) {
                          "Use abbreviated reference names obtained "
                          "from file.sam instead of using full names "
                          "from reference.fasta.");
+  clp.RegisterFlagOption("copyQVs", &copyQVs,
+                         "Copy all QVs available in the SAM file into the "
+                         "cmp.h5 file. This includes things like InsertionQV "
+                         "and DeletionTag.");
   string description = ("Because SAM has optional tags that have different "
     "meanings in different programs, careful usage is required in order to "
     "have proper output. The \"xs\" tag in bwa-sw is used to show the "
@@ -187,9 +192,11 @@ int main(int argc, char* argv[]) {
         // Order of references and alignmentSetAdapter.RefInfoGroup
         // should be exactly the same.
         references, alignmentSetAdapter.refNameToRefInfoIndex,
-        convertedAlignments, parseSmrtTitle, false);
+        convertedAlignments, parseSmrtTitle, false,
+        copyQVs);
+    
+    alignmentSetAdapter.StoreAlignmentCandidateList(convertedAlignments, cmpFile, alignIndex, copyQVs);
 
-    alignmentSetAdapter.StoreAlignmentCandidateList(convertedAlignments, cmpFile, alignIndex);
     int a;
     for (a = 0; a < convertedAlignments.size(); a++) {
       convertedAlignments[a].FreeSubsequences();
