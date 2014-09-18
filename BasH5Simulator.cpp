@@ -245,7 +245,7 @@ int main(int argc, char* argv[]) {
         // Prep the base file for writing.
         //
         stringstream fileNameStrm, movieNameStrm;
-        string movieName = "m000000_000000_00000_cSIMULATED_s";
+        //string movieName = "m000000_000000_00000_cSIMULATED_s";
         movieNameStrm << movieName << baseFileIndex << "_p0";
         string fullMovieName = movieNameStrm.str();		
         fileNameStrm  << fullMovieName <<  ".bas.h5";
